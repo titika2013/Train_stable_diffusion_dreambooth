@@ -1,30 +1,3 @@
-<p align="center">
-    <br>
-    <img src="https://github.com/huggingface/diffusers/raw/main/docs/source/imgs/diffusers_library.jpg" width="400"/>
-    <br>
-<p>
-<p align="center">
-    <a href="https://github.com/huggingface/diffusers/blob/main/LICENSE">
-        <img alt="GitHub" src="https://img.shields.io/github/license/huggingface/datasets.svg?color=blue">
-    </a>
-    <a href="https://github.com/huggingface/diffusers/releases">
-        <img alt="GitHub release" src="https://img.shields.io/github/release/huggingface/diffusers.svg">
-    </a>
-    <a href="CODE_OF_CONDUCT.md">
-        <img alt="Contributor Covenant" src="https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg">
-    </a>
-</p>
-
-🤗 Diffusers provides pretrained diffusion models across multiple modalities, such as vision and audio, and serves
-as a modular toolbox for inference and training of diffusion models.
-
-More precisely, 🤗 Diffusers offers:
-
-- State-of-the-art diffusion pipelines that can be run in inference with just a couple of lines of code (see [src/diffusers/pipelines](https://github.com/huggingface/diffusers/tree/main/src/diffusers/pipelines)). Check [this overview](https://github.com/huggingface/diffusers/tree/main/src/diffusers/pipelines/README.md#pipelines-summary) to see all supported pipelines and their corresponding official papers.
-- Various noise schedulers that can be used interchangeably for the preferred speed vs. quality trade-off in inference (see [src/diffusers/schedulers](https://github.com/huggingface/diffusers/tree/main/src/diffusers/schedulers)).
-- Multiple types of models, such as UNet, can be used as building blocks in an end-to-end diffusion system (see [src/diffusers/models](https://github.com/huggingface/diffusers/tree/main/src/diffusers/models)).
-- Training examples to show how to train the most popular diffusion model tasks (see [examples](https://github.com/huggingface/diffusers/tree/main/examples), *e.g.* [unconditional-image-generation](https://github.com/huggingface/diffusers/tree/main/examples/unconditional_image_generation)).
-
 ## Installation
 
 ### For PyTorch
@@ -33,12 +6,6 @@ More precisely, 🤗 Diffusers offers:
     
 ```bash
 pip install --upgrade diffusers[torch]
-```
-
-**With `conda`**
-
-```sh
-conda install -c conda-forge diffusers
 ```
 
 ### For Flax
