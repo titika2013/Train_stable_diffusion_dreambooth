@@ -8,4 +8,4 @@ tensorboard
 modelcards
 accelerate
 triton
-cv2
+opencv-python
