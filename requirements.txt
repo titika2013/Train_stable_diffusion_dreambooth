@@ -8,4 +8,9 @@ tensorboard
 modelcards
 accelerate
 triton
-opencv-python
+numpy>==1.21.6
+opencv-python>==4.6.0.66
+deepface>==0.0.75
+setuptools>==65.6.0
+Pillow>==9.3.0
+tqdm>==4.64.1
