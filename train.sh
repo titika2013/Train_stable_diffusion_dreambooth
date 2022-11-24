@@ -1,23 +1,18 @@
-export MODEL_NAME="runwayml/stable-diffusion-v1-5"
-export INSTANCE_DIR="/home/ubuntu/dreambooth_nacho"
-export CLASS_DIR="/home/ubuntu/class_images"
-export OUTPUT_DIR="/home/ubuntu/trained_model"
-
-accelerate launch train_dreambooth.py \
-  --pretrained_model_name_or_path=$MODEL_NAME \
-  --instance_data_dir=$INSTANCE_DIR \
-  --class_data_dir=$CLASS_DIR \
-  --output_dir=$OUTPUT_DIR \
-  --with_prior_preservation --prior_loss_weight=1.0 \
-  --instance_prompt="a photo of N" \
-  --class_prompt="a photo of N" \
+!accelerate launch $MAIN_DIR/diffusers/examples/dreambooth/train_dreambooth.py \
+  --image_captions_filename \
+  --pretrained_model_name_or_path="$MODELT_NAME" \
+  --instance_data_dir="$INSTANCE_DIR" \
+  --output_dir="$OUTPUT_DIR" \
+  --instance_prompt="" \
+  --seed=$Seed \
   --resolution=512 \
-  --train_batch_size=1 \
+  --mixed_precision="fp16" \
   --sample_batch_size=1 \
+  --train_batch_size=1 \
   --gradient_accumulation_steps=1 --gradient_checkpointing \
-  --learning_rate=5e-6 \
-  --lr_scheduler="constant" \
+  --learning_rate=2e-6 \
+  --use_8bit_adam \
+  --lr_scheduler="polynomial" \
+  --center_crop \
   --lr_warmup_steps=0 \
-  --num_class_images=200 \
-  --max_train_steps=800 \
-  --mixed_precision=fp16
+  --max_train_steps=$Training_Steps
