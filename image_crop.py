@@ -73,4 +73,5 @@ if __name__ == "__main__":
     save_image_path = args.save_image_path
     crop_size = args.crop_size
     need_face_find = args.face_finder
-    process(image_path, save_image_path, crop_size, need_face_find)
+    img_names = args.key_name
+    process(image_path, save_image_path, crop_size, face_detection=need_face_find, key_of_photo=img_names)
