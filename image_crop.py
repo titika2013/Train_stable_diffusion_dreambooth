@@ -48,16 +48,21 @@ def process(source_photo_dir="fresh_photos", dst_photo_dir="my_photos", crop_siz
     if not os.path.exists(dst_photo_dir):
         os.mkdir(dst_photo_dir)
     for count, item in enumerate(glob.iglob(os.path.join(source_photo_dir, "*"))):  # *.jpg
-        img = cv2.imread(item)
-        if face_detection:
-            pass
-            face = DeepFace.detectFace(img_path=img, target_size=size, detector_backend=backends[4],
-                                       enforce_detection=False)
-            if np.mean(face) < 1e-3:
-                continue
-        resized_img = resize(img, size)
-        dst = f"{key_of_photo}({str(count)}).jpg"
-        cv2.imwrite(os.path.join(dst_photo_dir, dst), resized_img)
+        try:
+            img = cv2.imread(item)
+            if face_detection:
+                pass
+                face = DeepFace.detectFace(img_path=img, target_size=size, detector_backend=backends[4],
+                                           enforce_detection=False)
+                if np.mean(face) < 1e-3:
+                    continue
+            resized_img = resize(img, size)
+            dst = f"{key_of_photo}({str(count)}).jpg"
+            print(1)
+            cv2.imwrite(os.path.join(dst_photo_dir, dst), resized_img)
+        except:
+            print("something went wrong")
+            continue
 
 
 if __name__ == "__main__":
@@ -74,4 +79,5 @@ if __name__ == "__main__":
     crop_size = args.crop_size
     need_face_find = args.face_finder
     img_names = args.key_name
-    process(image_path, save_image_path, crop_size, face_detection=need_face_find, key_of_photo=img_names)
+    process(source_photo_dir=image_path, dst_photo_dir=save_image_path, crop_size=crop_size,
+            face_detection=need_face_find, key_of_photo=img_names)
