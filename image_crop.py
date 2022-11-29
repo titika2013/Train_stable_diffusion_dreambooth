@@ -58,7 +58,6 @@ def process(source_photo_dir="fresh_photos", dst_photo_dir="my_photos", crop_siz
                     continue
             resized_img = resize(img, size)
             dst = f"{key_of_photo}({str(count)}).jpg"
-            print(1)
             cv2.imwrite(os.path.join(dst_photo_dir, dst), resized_img)
         except:
             print("something went wrong")
