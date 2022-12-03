@@ -1,16 +1,18 @@
-deepspeed
-diffusers>==0.5.0
-accelerate
-torchvision
-transformers>=4.21.0
+torch==1.12.1+cu113
+torchvision==0.13.1+cu113
+-qq git+https://github.com/ShivamShrirao/diffusers
+accelerate==0.12.0 tensorboard transformers ftfy gradio
+OmegaConf
+wget
+pytorch_lightning
+huggingface_hub
 ftfy
-tensorboard
-modelcards
-accelerate
-triton
-numpy>==1.21.6
-opencv-python>==4.6.0.66
-deepface>==0.0.75
-setuptools>==65.6.0
-Pillow>==9.3.0
-tqdm>==4.64.1
+transformers
+pyfiglet
+triton==2.0.0.dev20220701
+bitsandbytes
+python-slugify
+deepface
+requests
+https://github.com/apolinario/xformers/releases/download/0.0.2/xformers-0.0.14.dev0-cp38-cp38-linux_x86_64.whl
+!git clone https://github.com/titika2013/dreambooth_train
