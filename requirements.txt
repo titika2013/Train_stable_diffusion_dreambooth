@@ -15,4 +15,4 @@ python-slugify
 deepface
 requests
 https://github.com/apolinario/xformers/releases/download/0.0.2/xformers-0.0.14.dev0-cp38-cp38-linux_x86_64.whl
-!git clone https://github.com/titika2013/dreambooth_train
+https://github.com/titika2013/dreambooth_train
