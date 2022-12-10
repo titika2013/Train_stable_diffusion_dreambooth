@@ -88,14 +88,6 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
         prec = "no"
     # Enable/disable half-precision, disabling it will double the training time and produce 4GB-5.2GB checkpoints.
 
-    # GC= "--gradient_checkpointing"
-    s = getoutput('nvidia-smi')
-    if 'A100' in s:
-        precision = "no"
-        # GC= ""
-    else:
-        precision = prec
-
     train_text_encoder_for = 30
     if train_text_encoder_for >= 100:
         stptxt = training_steps
@@ -144,7 +136,7 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
         model_sd_path,
         subfolder="tokenizer",
     )
-
+    free_gpu_cache()
     ####################################################################################################################
     ####################################################################################################################
     ####################################################################################################################
@@ -166,7 +158,7 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
         dient_accumulation_steps=1,
         gradient_accumulation_steps=1,
         max_grad_norm=1.0,
-        mixed_precision=precision,
+        mixed_precision=prec,
         gradient_checkpointing=True,  # set this to True to lower the memory usage.
         use_8bit_adam=True,  # use 8bit optimizer from bitsandbytes
         seed=seed,
@@ -185,7 +177,6 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
     ####################################################################################################################
 
     # @title Training function
-
     training_function(text_encoder, vae, unet, args, tokenizer)
     for param in itertools.chain(unet.parameters(), text_encoder.parameters()):
         if param.grad is not None:
