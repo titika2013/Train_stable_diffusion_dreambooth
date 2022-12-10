@@ -96,7 +96,7 @@ def parse_args(input_args=None):
 
 
 def main(args):
-    run_training_model(model_sd_path=args.mmdel_sd_path, folder_with_user_photo=args.folder_with_user_photo,
+    run_training_model(model_sd_path=args.model_sd_path, folder_with_user_photo=args.folder_with_user_photo,
                        image_resolution=args.resolution, save_model_checkpoint_every=args.save_model_checkpoint_every,
                        key_name=args.key_prompt, output_dir=args.output_dir, need_face_find=args.need_face_find)
 
