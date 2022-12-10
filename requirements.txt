@@ -11,3 +11,5 @@ torch
 torchvision
 tqdm
 transformers
+opencv-python
+ipython
