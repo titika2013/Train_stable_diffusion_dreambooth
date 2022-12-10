@@ -86,9 +86,9 @@ def parse_args(input_args=None):
     else:
         args = parser.parse_args()
 
-    if not args.tokenizer_name:
+    if not args.key_prompt:
         _, tail = os.path.split(args.folder_with_user_photo)
-        args.tokenizer_name = tail
+        args.key_prompt = tail
 
     # if args.class_data_dir is None:
     #         raise ValueError("You must specify a data directory for class images.")
