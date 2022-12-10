@@ -168,13 +168,6 @@ def parse_args(input_args=None):
              "Only applies to schedulers.DDIMScheduler, will be ignored for others."
     )
     parser.add_argument(
-        "--eta",
-        type=float,
-        default=0.0,
-        help="Corresponds to parameter eta (η) in the DDIM paper: https://arxiv.org/abs/2010.02502. "
-             "Only applies to schedulers.DDIMScheduler, will be ignored for others."
-    )
-    parser.add_argument(
         "--need_display",
         type=bool,
         default=1,
