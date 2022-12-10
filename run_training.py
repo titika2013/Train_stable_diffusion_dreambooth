@@ -150,12 +150,11 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
         stop_text_encoder_training=stptxt,
         save_n_steps=stp,
         instance_data_dir=where_temp_save_res_photos,
-        instance_prompt=pt,
+        instance_prompt=pt, # or key_name
         learning_rate=2e-6,
         max_train_steps=training_steps,
         train_batch_size=1,  # set to 1 if using prior preservation
         with_prior_preservation=False,
-        dient_accumulation_steps=1,
         gradient_accumulation_steps=1,
         max_grad_norm=1.0,
         mixed_precision=prec,

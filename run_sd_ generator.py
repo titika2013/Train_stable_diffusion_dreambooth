@@ -1,13 +1,12 @@
 import argparse
 import os
 import random
-
 import cv2
 import numpy as np
 import torch
 from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler, DDIMScheduler, LMSDiscreteScheduler
 from torch import autocast
-
+from IPython.display import display
 
 def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
     if scheduler_name != "DPMSolverMultistepScheduler" or "DDIMScheduler" or "LMSDiscreteScheduler":
@@ -46,25 +45,24 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
     return pipe
 
 
-def execute_generation_sd(model_sd_path, key_name, input_user_prompt="portrait masterpiece painting by vasnetsov",
+def execute_generation_sd(model_sd_path, key_name="", input_user_prompt="portrait masterpiece painting by vasnetsov",
                           path_to_dest="", negative_prompt="", num_samples=4, guidance_scale=8, num_inference_steps=110,
-                          height=512, width=512, seed=0, eta=0, need_display=True):
+                          height=512, width=512, seed=0, eta=0, need_display=True, need_add_prompt=True):
     if not path_to_dest:
         path_to_dest = model_sd_path
-    main_prompt = input_user_prompt
-
-    prompt = key_name + main_prompt  # @param {type:"string"}
-    # negative_prompt = ""  # @param {type:"string"}
-    # num_samples = 4  # @param {type:"number"}
-    # guidance_scale = 8  # @param {type:"number"}
-    # num_inference_steps = 110  # @param {type:"number"}
-    # height = 512  # @param {type:"number"}
-    # width = 512  # @param {type:"number"}
-    # seed = 0  # @param {type:"number"}
-    if seed != 0:
-        generator = torch.Generator("cuda").manual_seed(seed)
+        path_to_save_img = path_to_dest + "/gen_images"
     else:
-        generator = 0
+        path_to_save_img = path_to_dest
+    if need_add_prompt:
+        main_prompt = input_user_prompt
+        prompt = key_name + " " + main_prompt  # @param {type:"string"}
+    else:
+        prompt = input_user_prompt
+
+    # if seed != 0:
+    #     generator = torch.Generator("cuda").manual_seed(1024)
+    # else:
+    #     generator = 0
 
     pipe = prep_pipe(model_sd_path)
     with autocast("cuda"), torch.inference_mode():
@@ -76,12 +74,12 @@ def execute_generation_sd(model_sd_path, key_name, input_user_prompt="portrait m
             num_images_per_prompt=num_samples,
             num_inference_steps=num_inference_steps,
             guidance_scale=guidance_scale,
-            generator=generator,
+            generator=None,
             eta=eta,
         ).images
 
-    path_to_save_img = path_to_dest
-    os.mkdir(path_to_save_img)
+    if not os.path.exists(path_to_save_img):
+        os.mkdir(path_to_save_img)
     i = 0
     for img in images:
         im_rgb = cv2.cvtColor(np.asarray(img), cv2.COLOR_BGR2RGB)
@@ -89,7 +87,7 @@ def execute_generation_sd(model_sd_path, key_name, input_user_prompt="portrait m
                     np.asarray(im_rgb))  ### Change !!!!
         i += 1
         if need_display:
-            img.show()
+            display(img)
 
 
 def parse_args(input_args=None):
@@ -170,9 +168,14 @@ def parse_args(input_args=None):
     parser.add_argument(
         "--need_display",
         type=bool,
-        default=1,
-        help="Corresponds to parameter eta (η) in the DDIM paper: https://arxiv.org/abs/2010.02502. "
-             "Only applies to schedulers.DDIMScheduler, will be ignored for others."
+        default=True,
+        help="Need to display generated images"
+    )
+    parser.add_argument(
+        "--need_add_key_prompt_to_input_user_prompt",
+        type=bool,
+        default=True,
+        help="add token prompt to start input user prompt"
     )
     if input_args is not None:
         args = parser.parse_args(input_args)
@@ -189,7 +192,7 @@ def main(args):
                           num_samples=args.num_samples,
                           guidance_scale=args.guidance_scale, num_inference_steps=args.num_inference_steps,
                           height=args.resolution, width=args.resolution, seed=args.seed, eta=args.eta,
-                          need_display=args.need_display)
+                          need_display=args.need_display, need_add_prompt=args.need_add_key_prompt_to_input_user_prompt)
 
 
 if __name__ == '__main__':
