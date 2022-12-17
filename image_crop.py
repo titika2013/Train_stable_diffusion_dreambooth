@@ -43,7 +43,7 @@ def img_process(source_photo_dir="fresh_photos", dst_photo_dir="my_photos", crop
                 if np.mean(face) < 1e-3:
                     continue
             resized_img = resize(img, size)
-            dst = f"{key_of_photo}_({str(count)}).jpg"
+            dst = f"{key_of_photo}({str(count)}).jpg"
             cv2.imwrite(os.path.join(dst_photo_dir, dst), resized_img)
         except:
             print("something went wrong")
