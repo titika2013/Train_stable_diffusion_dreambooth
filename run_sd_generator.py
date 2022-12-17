@@ -134,7 +134,7 @@ def parse_args(input_args=None):
     )
     parser.add_argument(
         "--guidance_scale",
-        type=int,
+        type=float,
         default=8,
         help="Guidance scale as defined in Classifier-Free Diffusion Guidance. "
              "guidance_scale is defined as w of equation 2. of Imagen Paper. "
