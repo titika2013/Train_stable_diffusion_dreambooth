@@ -1,7 +1,7 @@
 # Обучение модели Stable diffusion на своих фотографиях
 Для дообучения модели Stable diffusion вам предварительно необходима предобученная модель stable diffusion её можно взять с [huggingface](https://huggingface.co/models?search=stable-diffusion), по примеру из ipynb. Для работы дообучения вам необходимо.
 
-1. Предварительно обученную модель stable diffusion (рекомендуется брать версию >= 1.5). Пример скачивания модели показан [здесь](https://github.com/titika2013/Training_and_gen_stable_diffusion_script_dreambooth/blob/main/Train_stable_diffusion.ipynb);
+1. Предварительно обученную модель stable diffusion (рекомендуется брать версию >= 1.5). Пример скачивания модели показан [здесь](https://github.com/titika2013/Training_and_gen_stable_diffusion_script_dreambooth/blob/main/Train_stable_diffusion.ipynb);
 2. Изображения для обучения к примеру датасет с 10-20 вашими фотографиями (селфи для генерации портретов) размещенный в папке;
 3. Хорошо, также иметь изображения для регуляризации (необходимы для более тонкой настройки обучения). к примеру изображения для генерации портретов находятся в папке [Regularization_images/Mix](https://github.com/titika2013/Training_and_gen_stable_diffusion_script_dreambooth/tree/main/Regularization_images/Mix "This path skips through empty directories"); изображений для регуляции рекомендуется  в колчичестве 100 - 200 (если подобных изображений нет их можно попробовать сгенерировать, но в некоторых случаях могут получиться нереалистичные изображения, и лучше вообще не брать изображения для регуляризации).
 Пример работы в [colab](https://github.com/titika2013/Training_and_gen_stable_diffusion_script_dreambooth/blob/main/Train_stable_diffusion.ipynb)  и grid.ai.
