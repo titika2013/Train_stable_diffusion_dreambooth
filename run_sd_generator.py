@@ -19,7 +19,6 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
             safety_checker=None,
             torch_dtype=torch.float16,
             solver_order=2,
-            clip_sample=False,
         ).to("cuda")
     elif scheduler_name == "DDIMScheduler":
         scheduler = DDIMScheduler.from_pretrained(path_to_model, subfolder="scheduler", clip_sample=False)
@@ -29,7 +28,6 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
             scheduler=scheduler,
             safety_checker=None,
             torch_dtype=torch.float16,
-            clip_sample=False,
         ).to("cuda")
     elif scheduler_name == "LMSDiscreteScheduler":
         scheduler = LMSDiscreteScheduler.from_pretrained(path_to_model, subfolder="scheduler", clip_sample=False)
@@ -39,7 +37,6 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
             scheduler=scheduler,
             safety_checker=None,
             torch_dtype=torch.float16,
-            clip_sample=False,
         ).to("cuda")
 
     return pipe
