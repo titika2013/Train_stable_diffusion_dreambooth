@@ -18,8 +18,8 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
             scheduler=scheduler,
             safety_checker=None,
             torch_dtype=torch.float16,
-            revision="fp16",
             solver_order=2,
+            clip_sample=False,
         ).to("cuda")
     elif scheduler_name == "DDIMScheduler":
         scheduler = DDIMScheduler.from_pretrained(path_to_model, subfolder="scheduler", clip_sample=False)
@@ -29,7 +29,7 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
             scheduler=scheduler,
             safety_checker=None,
             torch_dtype=torch.float16,
-            revision="fp16",
+            clip_sample=False,
         ).to("cuda")
     elif scheduler_name == "LMSDiscreteScheduler":
         scheduler = LMSDiscreteScheduler.from_pretrained(path_to_model, subfolder="scheduler", clip_sample=False)
@@ -39,7 +39,7 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
             scheduler=scheduler,
             safety_checker=None,
             torch_dtype=torch.float16,
-            revision="fp16",
+            clip_sample=False,
         ).to("cuda")
 
     return pipe
@@ -75,7 +75,7 @@ def execute_generation_sd(model_sd_path, key_name="", input_user_prompt="portrai
             num_inference_steps=num_inference_steps,
             guidance_scale=guidance_scale,
             generator=None,
-            eta=eta,
+#             eta=eta,
         ).images
 
     if not os.path.exists(path_to_save_img):
