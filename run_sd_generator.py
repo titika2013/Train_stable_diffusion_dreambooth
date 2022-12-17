@@ -8,7 +8,7 @@ from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler, DDIM
 from torch import autocast
 from IPython.display import display
 
-def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
+def prep_pipe(path_to_model, scheduler_name="DPMSolverMultistepScheduler"):
     if scheduler_name != "DPMSolverMultistepScheduler" or "DDIMScheduler" or "LMSDiscreteScheduler":
         scheduler_name = "DDIMScheduler"
     if scheduler_name == "DPMSolverMultistepScheduler":
@@ -44,7 +44,7 @@ def prep_pipe(path_to_model, scheduler_name="DDIMScheduler"):
 
 def execute_generation_sd(model_sd_path, key_name="", input_user_prompt="portrait masterpiece painting by vasnetsov",
                           path_to_dest="", negative_prompt="", num_samples=4, guidance_scale=8, num_inference_steps=110,
-                          height=512, width=512, seed=0, eta=0, need_display=True, need_add_prompt=True):
+                          height=512, width=512, seed=0, eta=0, need_display=True, need_add_prompt=True, scheduler = "DDIMScheduler"):
     if not path_to_dest:
         path_to_dest = model_sd_path
         path_to_save_img = path_to_dest + "/gen_images"
@@ -61,7 +61,7 @@ def execute_generation_sd(model_sd_path, key_name="", input_user_prompt="portrai
     # else:
     #     generator = 0
 
-    pipe = prep_pipe(model_sd_path)
+    pipe = prep_pipe(model_sd_path, scheduler_name = scheduler)
     with autocast("cuda"), torch.inference_mode():
         images = pipe(
             prompt,
@@ -122,6 +122,14 @@ def parse_args(input_args=None):
         default=None,
         help="prompt with training token",
     )
+
+    parser.add_argument(
+        "--scheduler",
+        type=str,
+        default="DDIMScheduler",
+        help="scheduler",
+    )
+    
     parser.add_argument("--seed", type=int, default=0, help="A seed")
     parser.add_argument(
         "--resolution",
@@ -189,7 +197,7 @@ def main(args):
                           num_samples=args.num_samples,
                           guidance_scale=args.guidance_scale, num_inference_steps=args.num_inference_steps,
                           height=args.resolution, width=args.resolution, seed=args.seed, eta=args.eta,
-                          need_display=args.need_display, need_add_prompt=args.need_add_key_prompt_to_input_user_prompt)
+                          need_display=args.need_display, need_add_prompt=args.need_add_key_prompt_to_input_user_prompt, scheduler=args.scheduler)
 
 
 if __name__ == '__main__':
