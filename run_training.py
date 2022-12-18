@@ -61,6 +61,10 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
     pt = ""
 #     if not class_dir:
 #         class_dir = main_dir + '/Regularization_images'
+    if len(class_dir) > 0:
+      with_prior_preservation = True
+    else: 
+      with_prior_preservation = False
     ####################################################################################################################
     ####################################################################################################################
     ####################################################################################################################
@@ -136,6 +140,7 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
         model_sd_path,
         subfolder="tokenizer",
     )
+    
     free_gpu_cache()
     ####################################################################################################################
     ####################################################################################################################
@@ -154,7 +159,7 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
         learning_rate=2e-6,
         max_train_steps=training_steps,
         train_batch_size=1,  # set to 1 if using prior preservation
-        with_prior_preservation=False,
+        with_prior_preservation=with_prior_preservation,
         gradient_accumulation_steps=1,
         max_grad_norm=1.0,
         mixed_precision=prec,
