@@ -73,7 +73,7 @@ def run_training_model(folder_with_user_photo="", where_temp_save_res_photos="",
     ####################################################################################################################
     ####################################################################################################################
     ####################################################################################################################
-    training_steps = len(os.listdir(where_temp_save_res_photos)) * 200
+    training_steps = len(os.listdir(where_temp_save_res_photos)) * 150
     training_steps = training_steps if training_steps <= 3000 else 3000
     # Total Steps = Number of Instance images * 200, if you use 30 images, use 6000 steps, if you're not satisfied with
     # the result, resume training for another 500 steps, and so on ...
